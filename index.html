@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Expense Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+
+        <div class="container">
+
+            <h1>💰 Expense Tracker</h1>
+
+            <p>
+                Track, manage and analyze your daily expenses
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <!-- Summary -->
+        <section class="summary">
+
+            <div class="summary-card">
+
+                <div class="summary-icon">💰</div>
+
+                <div>
+                    <h3>Total Expenses</h3>
+                    <p id="totalExpense">₹0.00</p>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">📊</div>
+
+                <div>
+                    <h3>Total Entries</h3>
+                    <p id="totalEntries">0</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Add Expense -->
+        <section class="card">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Add Expense</h2>
+
+                    <p>
+                        Enter your expense details below
+                    </p>
+                </div>
+
+            </div>
+
+
+            <form id="expenseForm">
+
+                <input type="hidden" id="editId">
+
+
+                <div class="form-grid">
+
+                    <!-- Expense Name -->
+                    <div class="form-group">
+
+                        <label for="expenseTitle">
+                            Expense Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="expenseTitle"
+                            placeholder="Example: Lunch"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Amount -->
+                    <div class="form-group">
+
+                        <label for="expenseAmount">
+                            Amount
+                        </label>
+
+                        <input
+                            type="number"
+                            id="expenseAmount"
+                            placeholder="Example: 250"
+                            min="0.01"
+                            step="0.01"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Category -->
+                    <div class="form-group">
+
+                        <label for="expenseCategory">
+                            Category
+                        </label>
+
+                        <select id="expenseCategory" required>
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                            <option value="Food">
+                                🍔 Food
+                            </option>
+
+                            <option value="Travel">
+                                🚗 Travel
+                            </option>
+
+                            <option value="Shopping">
+                                🛍️ Shopping
+                            </option>
+
+                            <option value="Education">
+                                📚 Education
+                            </option>
+
+                            <option value="Bills">
+                                💡 Bills
+                            </option>
+
+                            <option value="Other">
+                                📦 Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Date -->
+                    <div class="form-group">
+
+                        <label for="expenseDate">
+                            Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="expenseDate"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-buttons">
+
+                    <button
+                        type="submit"
+                        class="btn primary"
+                        id="submitButton"
+                    >
+                        ➕ Add Expense
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn cancel"
+                        id="cancelEdit"
+                        style="display: none;"
+                    >
+                        Cancel Edit
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- Filters -->
+        <section class="card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Filter & Sort</h2>
+
+                    <p>
+                        Find your expenses quickly
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="filter-grid">
+
+                <!-- Category -->
+                <div class="form-group">
+
+                    <label for="filterCategory">
+                        Category
+                    </label>
+
+                    <select id="filterCategory">
+
+                        <option value="All">
+                            All Categories
+                        </option>
+
+                        <option value="Food">
+                            🍔 Food
+                        </option>
+
+                        <option value="Travel">
+                            🚗 Travel
+                        </option>
+
+                        <option value="Shopping">
+                            🛍️ Shopping
+                        </option>
+
+                        <option value="Education">
+                            📚 Education
+                        </option>
+
+                        <option value="Bills">
+                            💡 Bills
+                        </option>
+
+                        <option value="Other">
+                            📦 Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Date -->
+                <div class="form-group">
+
+                    <label for="filterDate">
+                        Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="filterDate"
+                    >
+
+                </div>
+
+
+                <!-- Sort -->
+                <div class="form-group">
+
+                    <label for="sortExpenses">
+                        Sort By
+                    </label>
+
+                    <select id="sortExpenses">
+
+                        <option value="newest">
+                            Newest First
+                        </option>
+
+                        <option value="oldest">
+                            Oldest First
+                        </option>
+
+                        <option value="high">
+                            Amount: High to Low
+                        </option>
+
+                        <option value="low">
+                            Amount: Low to High
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Clear -->
+                <div class="form-group button-group">
+
+                    <button
+                        type="button"
+                        id="clearFilters"
+                        class="btn secondary"
+                    >
+                        🔄 Clear Filters
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Expense List -->
+        <section class="card">
+
+            <div class="list-header">
+
+                <div>
+
+                    <h2>Your Expenses</h2>
+
+                    <p id="resultText">
+                        0 expenses found
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="expenseList">
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        📝
+                    </div>
+
+                    <h3>No expenses yet</h3>
+
+                    <p>
+                        Add your first expense using the form above.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            Expense Tracker • Veda Technology Internship
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
